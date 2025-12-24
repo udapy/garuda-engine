@@ -1,0 +1,40 @@
+[workspace]
+name = "antigravity_engine"
+version = "0.1.0"
+description = "Async High-Frequency News Engine for NSE/BSE"
+authors = ["Antigravity Research <research@antigravity.io>"]
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-arm64", "osx-64", "win-64"]
+
+[tasks]
+# The main entry point. Run with: pixi run start
+start = "python main.py"
+# A dev task to clean logs or cache if needed
+clean = "rm -rf __pycache__ *.log"
+
+[dependencies]
+python = "3.11.*"
+aiohttp = ">=3.9.1"
+orjson = ">=3.9.10"
+loguru = ">=0.7.2"
+fake-useragent = ">=1.4.0"
+httpx = ">=0.26.0"
+h2 = ">=4.1.0"
+
+[pypi-dependencies]
+pymupdf = ">=1.23.8"
+kiteconnect = ">=3.9.0"
+ib_insync = ">=0.9.86"
+
+# Platform specific dependencies
+[target.linux-64.dependencies]
+uvloop = ">=0.19.0"
+
+[target.osx-arm64.dependencies]
+uvloop = ">=0.19.0"
+
+[target.osx-64.dependencies]
+uvloop = ">=0.19.0"
+
+# Windows doesn't support uvloop, so we omit it there.
+# The code in main.py already handles the ImportError gracefully.
